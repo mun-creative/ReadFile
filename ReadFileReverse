@@ -1,0 +1,84 @@
+package com.demo.file;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Optional;
+
+public class ReadFileReverse {
+	public int[] readByte(File _file) throws IOException {
+		if (!_file.exists() || _file.length() == 0) {
+			System.out.println("File does not exists or is empty , exiting from system.....");
+			return new int[0];
+		} else {
+			FileInputStream source = new FileInputStream(_file);
+			int currentByte = source.available();
+			int readCount = 0;
+
+			int byteContainer[] = new int[currentByte];
+			while (readCount < currentByte) {
+				byteContainer[readCount] = source.read();
+				readCount++;
+			}
+			source.close();
+			return byteContainer;
+		}
+	}
+
+	public void writeReverseContentToFile(int[] fileContent) {
+
+		// Try block to check for exceptions
+		try {
+
+			// Step 1: Create an object of BufferedWriter
+			BufferedWriter f_writer = new BufferedWriter(new FileWriter("src/output.txt"));
+			if (Optional.ofNullable(fileContent) == null) {
+				System.out.println(
+						"File does not exists or is empty , can't generate empty file exiting from system.....");
+				return;
+			}
+			for (int byt = fileContent.length - 1; byt >= 0; byt--) {
+
+				// Step 2: Write text(content) to file
+				f_writer.write(fileContent[byt]);
+
+				// Step 3: Printing the content inside the file
+				// on the terminal/CMD
+				System.out.print((char) fileContent[byt]);
+
+			}
+			System.out.println();
+
+			// Step 5: Close the BufferedWriter object
+			f_writer.close();
+
+		}
+
+		// Catch block to handle if exceptions occurs
+		catch (IOException e) {
+
+			// Print the exception on console
+			// using getMessage() method
+			System.out.print(e.getMessage());
+		} finally {
+			// Step 4: Display message showcasing
+			// successful execution of the program
+			
+			System.out.print(
+
+					"File is created successfully with the content.");
+
+		}
+	}
+
+	public static void main(String[] args) throws IOException {
+		File fileToRead = new File("src\\input.txt");
+
+		ReadFileReverse demo = new ReadFileReverse();
+		int[] readBytes = demo.readByte(fileToRead);
+
+		demo.writeReverseContentToFile(readBytes);
+	}
+}
