@@ -1,0 +1,57 @@
+package com.demo.file.tdd;
+
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
+
+import java.io.File;
+import java.io.IOException;
+
+import org.junit.Test;
+
+import com.demo.file.ReadFileReverse;
+
+import junit.framework.Assert;
+
+public class ReadFileReverseTDD {
+	
+	@Test
+	public void readByteIfFileNotExists() throws IOException
+	{
+	
+		//fail("Not implemented");
+		ReadFileReverse readFileReverse=new ReadFileReverse();
+		readFileReverse.readByte(new File("read.text"));
+		
+	}
+	
+	@Test
+	public void readByteIfFileExists() throws IOException
+	{
+	
+		//fail("Not implemented");
+		ReadFileReverse readFileReverse=new ReadFileReverse();
+		int [] bytes=readFileReverse.readByte(new File("src\\com\\demo\\file\\tdd\\read.txt"));
+		System.out.println(bytes);
+		assertNotNull(bytes);
+	}
+	@Test(expected=IOException.class)
+	public void readByteIfIOException() throws IOException
+	{
+	
+		//fail("Not implemented");
+		ReadFileReverse readFileReverse=new ReadFileReverse();
+		int [] bytes=readFileReverse.readByte(new File("src\\com\\demo\\file\\tdd\\abc.txt"));
+		System.out.println(bytes);
+		
+	}
+	
+	@Test(expected=NullPointerException.class)
+	public void writeReverseContentToFileTDD() throws IOException
+	{
+		
+		ReadFileReverse readFileReverse=new ReadFileReverse();
+		int[] readBytes=null;
+		readFileReverse.readByte(null);
+	}
+
+}
